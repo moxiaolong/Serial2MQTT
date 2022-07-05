@@ -1,0 +1,12 @@
+mqtt:
+  host: 127.0.0.1
+  port: 1883
+  username: aaaaa
+  password: 12345
+  qos: 0
+rtumodbus:
+  address: "/dev/ttyUSB0"
+  baudrate: 115200
+  databits: 1
+  stopbits: 1
+  Parity: "N"
