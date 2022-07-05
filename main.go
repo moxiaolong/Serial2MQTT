@@ -85,7 +85,7 @@ func connectModBusRtu(config Config.Config) {
 				log.Error(err.Error())
 			}
 
-			log.Info("ReadDiscreteInputs %#v\r\n", results)
+			log.Info("ReadDiscreteInputs", results)
 
 			time.Sleep(time.Second * 2)
 		}
@@ -93,7 +93,7 @@ func connectModBusRtu(config Config.Config) {
 
 }
 
-func connectMqtt(config Config.Config) chan bool {
+func connectMqtt(config Config.Config) {
 	log.Info("当前ClientId", ClientID)
 	username := config.Mqtt.UserName
 	password := config.Mqtt.PassWord
@@ -127,12 +127,13 @@ func connectMqtt(config Config.Config) chan bool {
 			time.Sleep(time.Second * 5)
 			continue
 		} else {
-			log.Info("Connected to %s\n", server)
+			log.Info("Connected to :", server)
 			if token := MqttClient.Subscribe(DownTopic, byte(qos), nil); token.Wait() && token.Error() != nil {
 				log.Error(token.Error())
 			} else {
-				log.Info("Subscribe topic  %s  successful\n", DownTopic)
+				log.Info("Subscribe topic successful :", DownTopic)
 			}
+			return
 		}
 
 	}
