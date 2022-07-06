@@ -29,7 +29,7 @@ func Serial(config Config.Config, serialChan chan serial.Port, serialHandle func
 			for {
 				read, err := port.Read(buffer)
 				if err != nil {
-					log.Fatal(err)
+					log.Warn(err)
 				} else {
 					if read == 0 {
 						time.Sleep(time.Second * 1)

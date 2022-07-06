@@ -6,7 +6,8 @@ import (
 )
 
 func Serial(msg *[]byte) {
-	for bytes := range *msg {
+
+	for _, bytes := range *msg {
 		sprintf := fmt.Sprintf("%x", bytes)
 		log.Info("receive serial data:：", sprintf)
 	}
