@@ -18,6 +18,7 @@ var MqttClient MQTT.Client = nil
 var serialPort serial.Port = nil
 
 func main() {
+
 	config := Config.GetConfig()
 	log.Info("config : ", config)
 	clients := make(chan MQTT.Client, 1)
@@ -30,5 +31,4 @@ func main() {
 	for {
 		time.Sleep(time.Second * 60)
 	}
-
 }

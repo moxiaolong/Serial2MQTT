@@ -16,10 +16,11 @@ func Serial(config Config.Config, serialChan chan serial.Port, serialHandle func
 			DataBits: config.DataBits,
 			StopBits: config.StopBits,
 			Parity:   config.Parity,
-			Timeout:  time.Second * 5,
+			Timeout:  time.Second * 15,
 		})
 		if err != nil {
 			log.Error("Connect Serial Error ", err)
+			time.Sleep(time.Second * 15)
 			continue
 		} else {
 			log.Info("Connected Serial to ", config.Address)
