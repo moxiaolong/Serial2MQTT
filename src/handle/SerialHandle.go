@@ -8,6 +8,6 @@ import (
 func Serial(msg chan []byte) {
 	for bytes := range msg {
 		sprintf := fmt.Sprintf("%x", bytes)
-		log.Info("收到串口数据：", sprintf)
+		log.Info("receive serial data:：", sprintf)
 	}
 }

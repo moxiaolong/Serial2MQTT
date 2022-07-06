@@ -9,6 +9,7 @@ import (
 
 func Serial(config Config.Config, serialChan chan serial.Port, serialHandle func(chan []byte)) {
 	for {
+		log.Info("Connected Serial...")
 		port, err := serial.Open(&serial.Config{
 			Address:  config.Address,
 			BaudRate: config.BaudRate,
@@ -18,7 +19,7 @@ func Serial(config Config.Config, serialChan chan serial.Port, serialHandle func
 			Timeout:  time.Second * 5,
 		})
 		if err != nil {
-			log.Error(err)
+			log.Error("Connected Serial Error ", err)
 			continue
 		} else {
 			serialChan <- port

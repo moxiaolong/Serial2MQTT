@@ -10,7 +10,7 @@ import (
 
 func Mqtt(config Config.Config, clientId string, dealMqttMsg func(chan [2]string, chan bool), clients chan MQTT.Client) {
 
-	log.Info("当前ClientId", clientId)
+	log.Info("MQTT ClientId", clientId)
 	username := config.Mqtt.UserName
 	password := config.Mqtt.PassWord
 	qos := config.Mqtt.Qos
@@ -43,11 +43,11 @@ func Mqtt(config Config.Config, clientId string, dealMqttMsg func(chan [2]string
 			time.Sleep(time.Second * 5)
 			continue
 		} else {
-			log.Info("Connected to :", server)
+			log.Info("Connected to mqtt:", server)
 			if token := MqttClient.Subscribe(DownTopic, byte(qos), nil); token.Wait() && token.Error() != nil {
 				log.Error(token.Error())
 			} else {
-				log.Info("Subscribe topic successful :", DownTopic)
+				log.Info("Subscribe mqtt topic successful :", DownTopic)
 			}
 			clients <- MqttClient
 		}
