@@ -13,13 +13,13 @@ import (
 	"time"
 )
 
-var ClientID = "ModBusConverter" + strconv.FormatInt(rand.Int63n(math.MaxInt64), 16)
+var ClientID = "SerialMqttConverter" + strconv.FormatInt(rand.Int63n(math.MaxInt64), 16)
 var MqttClient MQTT.Client = nil
 var serialPort serial.Port = nil
 
 func main() {
 	config := Config.GetConfig()
-	log.Info("当前配置", config)
+	log.Info("config : ", config)
 	clients := make(chan MQTT.Client, 1)
 	go connect.Mqtt(config, ClientID, handle.Mqtt, clients)
 	ports := make(chan serial.Port, 1)

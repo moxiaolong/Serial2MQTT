@@ -11,7 +11,7 @@ func Mqtt(msg chan [2]string, exit chan bool) {
 	for {
 		select {
 		case incoming := <-msg:
-			log.Info("Received message on topic: %s\nMessage: %s\n", incoming[0], incoming[1])
+			log.Info("Received message on topic: ", incoming[0], "Message:", incoming[1])
 			var msg message.Message
 			err := json.Unmarshal([]byte(incoming[1]), &msg)
 			if err != nil {
@@ -19,7 +19,7 @@ func Mqtt(msg chan [2]string, exit chan bool) {
 				continue
 			}
 			m := msg.Msg
-			log.Info(m)
+			log.Info("mqtt msg:", m)
 		case <-exit:
 			return
 		default:

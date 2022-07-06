@@ -50,6 +50,7 @@ func Mqtt(config Config.Config, clientId string, dealMqttMsg func(chan [2]string
 				log.Info("Subscribe mqtt topic successful :", DownTopic)
 			}
 			clients <- MqttClient
+			time.Sleep(time.Second * 5)
 		}
 	}
 

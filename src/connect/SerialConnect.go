@@ -9,7 +9,7 @@ import (
 
 func Serial(config Config.Config, serialChan chan serial.Port, serialHandle func(chan []byte)) {
 	for {
-		log.Info("Connected Serial...")
+		log.Info("Connected Serial ", config.Address)
 		port, err := serial.Open(&serial.Config{
 			Address:  config.Address,
 			BaudRate: config.BaudRate,
