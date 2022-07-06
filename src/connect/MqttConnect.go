@@ -36,9 +36,13 @@ func Mqtt(config Config.Config, clientId string, dealMqttMsg func(chan [2]string
 	go dealMqttMsg(recmsg, quit)
 
 	MqttClient := MQTT.NewClient(connOpts)
-
+	clients <- MqttClient
 	for {
 		log.Info("Connecting... to mqtt:", server)
+		if MqttClient.IsConnected() {
+			time.Sleep(time.Second * 5)
+			continue
+		}
 		if token := MqttClient.Connect(); token.Wait() && token.Error() != nil {
 			log.Error(token.Error())
 			time.Sleep(time.Second * 5)
@@ -50,8 +54,7 @@ func Mqtt(config Config.Config, clientId string, dealMqttMsg func(chan [2]string
 			} else {
 				log.Info("Subscribe mqtt topic successful :", DownTopic)
 			}
-			clients <- MqttClient
-			time.Sleep(time.Second * 5)
+
 		}
 	}
 
