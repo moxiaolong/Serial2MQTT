@@ -7,7 +7,7 @@ import (
 
 type Config struct {
 	Mqtt
-	RtuModbus
+	Serial
 }
 
 type Mqtt struct {
@@ -20,7 +20,7 @@ type Mqtt struct {
 	DownTopic string
 }
 
-type RtuModbus struct {
+type Serial struct {
 	//串口
 	Address  string
 	BaudRate int
@@ -38,11 +38,11 @@ func GetConfig() Config {
 	config.Mqtt.DownTopic = "/twwg/modbus_rtu/down"
 
 	//modbus配置
-	config.RtuModbus.Address = "/dev/ttyUSB0"
-	config.RtuModbus.BaudRate = 115200
-	config.RtuModbus.DataBits = 8
-	config.RtuModbus.StopBits = 1
-	config.RtuModbus.Parity = "N"
+	config.Serial.Address = "/dev/ttyUSB0"
+	config.Serial.BaudRate = 115200
+	config.Serial.DataBits = 8
+	config.Serial.StopBits = 1
+	config.Serial.Parity = "N"
 
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
