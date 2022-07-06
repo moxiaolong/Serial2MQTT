@@ -38,6 +38,7 @@ func Mqtt(config Config.Config, clientId string, dealMqttMsg func(chan [2]string
 	MqttClient := MQTT.NewClient(connOpts)
 
 	for {
+		log.Info("Connecting... to mqtt:", server)
 		if token := MqttClient.Connect(); token.Wait() && token.Error() != nil {
 			log.Error(token.Error())
 			time.Sleep(time.Second * 5)
