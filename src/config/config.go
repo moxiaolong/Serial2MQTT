@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/spf13/viper"
-	log "modbusRtu2Mqtt/src/userlog"
+	"log"
 )
 
 type Config struct {
@@ -50,14 +50,14 @@ func GetConfig() Config {
 	viper.AddConfigPath("./")
 	if err := viper.ReadInConfig(); err != nil {
 
-		log.Warn(err.Error())
+		log.Println(err.Error())
 
 		return config
 	}
 
 	err := viper.Unmarshal(&config)
 	if err != nil {
-		log.Warn("unable to decode into struct, %v", err)
+		log.Println("unable to decode into struct, %v", err)
 	}
 
 	return config

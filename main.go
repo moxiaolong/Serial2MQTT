@@ -3,12 +3,12 @@ package main
 import (
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"github.com/goburrow/serial"
+	"log"
 	"math"
 	"math/rand"
 	Config "modbusRtu2Mqtt/src/config"
 	"modbusRtu2Mqtt/src/connect"
 	"modbusRtu2Mqtt/src/handle"
-	log "modbusRtu2Mqtt/src/userlog"
 	"strconv"
 	"time"
 )
@@ -18,9 +18,10 @@ var MqttClient MQTT.Client = nil
 var serialPort serial.Port = nil
 
 func main() {
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 
 	config := Config.GetConfig()
-	log.Info("config : ", config)
+	log.Println("config : ", config)
 	clients := make(chan MQTT.Client, 1)
 	go connect.Mqtt(config, ClientID, handle.Mqtt, clients)
 	ports := make(chan serial.Port, 1)

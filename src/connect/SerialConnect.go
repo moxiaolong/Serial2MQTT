@@ -2,14 +2,14 @@ package connect
 
 import (
 	"github.com/goburrow/serial"
+	"log"
 	Config "modbusRtu2Mqtt/src/config"
-	log "modbusRtu2Mqtt/src/userlog"
 	"time"
 )
 
 func Serial(config Config.Config, serialChan chan serial.Port, serialHandle func([]byte)) {
 	for {
-		log.Info("Connecting... Serial ", config.Address)
+		log.Println("Connecting... Serial ", config.Address)
 		port, err := serial.Open(&serial.Config{
 			Address:  config.Address,
 			BaudRate: config.BaudRate,
@@ -19,17 +19,17 @@ func Serial(config Config.Config, serialChan chan serial.Port, serialHandle func
 			Timeout:  time.Second * 15,
 		})
 		if err != nil {
-			log.Error("Connect Serial Error ", err)
+			log.Println("Connect Serial Error ", err)
 			time.Sleep(time.Second * 15)
 			continue
 		} else {
-			log.Info("Connected Serial to ", config.Address)
+			log.Println("Connected Serial to ", config.Address)
 			serialChan <- port
 			buffer := make([]byte, 8)
 			for {
 				read, err := port.Read(buffer)
 				if err != nil {
-					log.Warn(err)
+					log.Println(err)
 				} else {
 					if read > 0 {
 						serialHandle(buffer)

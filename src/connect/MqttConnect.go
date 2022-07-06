@@ -2,15 +2,15 @@ package connect
 
 import (
 	MQTT "github.com/eclipse/paho.mqtt.golang"
+	"log"
 	Config "modbusRtu2Mqtt/src/config"
-	log "modbusRtu2Mqtt/src/userlog"
 	"strconv"
 	"time"
 )
 
 func Mqtt(config Config.Config, clientId string, dealMqttMsg func(chan [2]string, chan bool), clients chan MQTT.Client) {
 
-	log.Info("MQTT ClientId", clientId)
+	log.Println("MQTT ClientId", clientId)
 	username := config.Mqtt.UserName
 	password := config.Mqtt.PassWord
 	qos := config.Mqtt.Qos
@@ -42,17 +42,17 @@ func Mqtt(config Config.Config, clientId string, dealMqttMsg func(chan [2]string
 			time.Sleep(time.Second * 15)
 			continue
 		}
-		log.Info("Connecting... to mqtt:", server)
+		log.Println("Connecting... to mqtt:", server)
 		if token := MqttClient.Connect(); token.Wait() && token.Error() != nil {
-			log.Error(token.Error())
+			log.Println(token.Error())
 			time.Sleep(time.Second * 15)
 			continue
 		} else {
-			log.Info("Connected to mqtt:", server)
+			log.Println("Connected to mqtt:", server)
 			if token := MqttClient.Subscribe(DownTopic, byte(qos), nil); token.Wait() && token.Error() != nil {
-				log.Error(token.Error())
+				log.Println(token.Error())
 			} else {
-				log.Info("Subscribe mqtt topic successful :", DownTopic)
+				log.Println("Subscribe mqtt topic successful :", DownTopic)
 			}
 
 		}

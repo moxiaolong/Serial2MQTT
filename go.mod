@@ -4,13 +4,12 @@ go 1.18
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.4.1
+	github.com/goburrow/serial v0.1.0
 	github.com/spf13/viper v1.12.0
-	github.com/things-go/go-modbus v0.0.0-20220308114341-dfd6af49e123
 )
 
 require (
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
-	github.com/goburrow/serial v0.1.0 // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
