@@ -1,14 +1,10 @@
 package handle
 
 import (
-	"fmt"
 	"log"
 )
 
 func Serial(msg []byte) {
+	log.Println("receive serial data:：", msg)
 
-	for _, bytes := range msg {
-		sprintf := fmt.Sprintf("%x", bytes)
-		log.Println("receive serial data:：", sprintf)
-	}
 }
