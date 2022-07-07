@@ -15,10 +15,10 @@ var Client MQTT.Client
 
 func SetMqttClient(client MQTT.Client) {
 	log.Println("----------------------1", &Client)
-	log.Println("-----------------------2", client)
+	log.Println("-----------------------2", &client)
 	Client = client
 	log.Println("-----------------------3", &Client)
-	log.Println("-----------------------4", client)
+	log.Println("-----------------------4", &client)
 }
 
 func Serial(msg []byte, config Config.Config) {
