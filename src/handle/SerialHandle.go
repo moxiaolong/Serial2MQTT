@@ -3,9 +3,10 @@ package handle
 import (
 	"fmt"
 	Config "modbusRtu2Mqtt/src/config"
+	"time"
 )
 
-var buffer []byte = make([]byte, 0)
+var buffer = make([]byte, 0)
 var unpackChan = make(chan []byte)
 
 func Serial(msg []byte, config Config.Config) {
@@ -53,6 +54,7 @@ func Serial(msg []byte, config Config.Config) {
 			//继续位移窗口
 		}
 		if !oneMore {
+			time.Sleep(time.Second * 1)
 			break
 		}
 	}
