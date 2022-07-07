@@ -1,18 +1,26 @@
 package handle
 
 import (
-	"fmt"
+	"encoding/hex"
+	MQTT "github.com/eclipse/paho.mqtt.golang"
+	"log"
 	Config "modbusRtu2Mqtt/src/config"
+	"modbusRtu2Mqtt/src/message"
 	"time"
 )
 
 var buffer = make([]byte, 0)
 var unpackChan = make(chan []byte)
+var Client MQTT.Client
+
+func SetMqttClient(client MQTT.Client) {
+	Client = client
+}
 
 func Serial(msg []byte, config Config.Config) {
 
 	buffer = append(buffer, msg...)
-	go consumerUnpack()
+	go consumerUnpack(config)
 
 	//拆包
 	//包头
@@ -60,8 +68,11 @@ func Serial(msg []byte, config Config.Config) {
 	}
 }
 
-func consumerUnpack() {
+func consumerUnpack(config Config.Config) {
 	for bytes := range unpackChan {
-		fmt.Printf("拆包后数据%+x \r\n", bytes)
+		sprintf := hex.EncodeToString(bytes)
+		log.Println("Unpacked Data:", sprintf)
+		m := message.Message{Ns: time.Now().UnixNano(), Msg: sprintf}
+		Client.Publish(config.Mqtt.UpTopic, 0, true, m)
 	}
 }

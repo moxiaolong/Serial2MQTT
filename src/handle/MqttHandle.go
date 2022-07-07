@@ -1,11 +1,19 @@
 package handle
 
 import (
+	"encoding/hex"
 	"encoding/json"
+	"github.com/goburrow/serial"
 	"log"
 	"modbusRtu2Mqtt/src/message"
 	"time"
 )
+
+var Port serial.Port
+
+func SetSerial(port serial.Port) {
+	Port = port
+}
 
 func Mqtt(msg chan [2]string, exit chan bool) {
 	for {
@@ -19,7 +27,15 @@ func Mqtt(msg chan [2]string, exit chan bool) {
 				continue
 			}
 			m := msg.Msg
-			log.Println("mqtt msg:", m)
+			log.Println("mqtt msg:", msg)
+			decodeString, err := hex.DecodeString(m)
+			if err != nil {
+				log.Println("MQTT hex decode Error:", err)
+			}
+			_, err = Port.Write(decodeString)
+			if err != nil {
+				log.Println("Serial Write Error:", err)
+			}
 		case <-exit:
 			return
 		default:
