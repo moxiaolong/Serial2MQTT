@@ -23,7 +23,6 @@ func Mqtt(msg chan [2]string, exit chan bool) {
 				continue
 			}
 			m := msg.Msg
-			log.Println("mqtt msg:", msg)
 			decodeString, err := hex.DecodeString(m)
 			if err != nil {
 				log.Println("MQTT hex decode Error:", err)
