@@ -44,8 +44,8 @@ func GetConfig() Config {
 	config.Mqtt.Host = "127.0.0.1"
 	config.Mqtt.Port = 1883
 	config.Mqtt.Qos = 0
-	config.Mqtt.UpTopic = "/twwg/modbus_rtu/up"
-	config.Mqtt.DownTopic = "/twwg/modbus_rtu/down"
+	config.Mqtt.UpTopic = "/twwg/serial/up"
+	config.Mqtt.DownTopic = "/twwg/serial/down"
 
 	//modbus配置
 	config.Serial.Address = "/dev/ttyUSB0"
