@@ -74,8 +74,7 @@ func consumerUnpack(config Config.Config) {
 		if err != nil {
 			log.Println(err)
 		}
-		publish := Client.Publish(config.Mqtt.UpTopic, 1, false, marshal)
-		log.Println("Mqtt Publish Done,Token: ", publish)
+		Client.Publish(config.Mqtt.UpTopic, 1, false, marshal)
 
 	}
 }
