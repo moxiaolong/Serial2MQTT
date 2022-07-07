@@ -37,6 +37,5 @@ func Serial(config Config.Config, serialChan chan serial.Port, serialHandle func
 				}
 			}
 		}
-
 	}
 }

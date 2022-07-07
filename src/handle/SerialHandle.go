@@ -2,6 +2,7 @@ package handle
 
 import (
 	"encoding/hex"
+	"encoding/json"
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"log"
 	Config "modbusRtu2Mqtt/src/config"
@@ -11,18 +12,7 @@ import (
 
 var buffer = make([]byte, 0)
 var unpackChan = make(chan []byte)
-var Client *MQTT.Client
-
-func SetMqttClient(client MQTT.Client) {
-	log.Println(Client == nil)
-	log.Println("----------------------1", &Client)
-	log.Println("-----------------------2", &client)
-	Client = &client
-
-	log.Println("-----------------------3", Client)
-	log.Println("-----------------------4", &client)
-	log.Println("----------------------5", &*Client)
-}
+var Client MQTT.Client
 
 func Serial(msg []byte, config Config.Config) {
 
@@ -80,9 +70,11 @@ func consumerUnpack(config Config.Config) {
 		sprintf := hex.EncodeToString(bytes)
 		log.Println("Unpacked Data:", sprintf)
 		m := message.Message{Ns: time.Now().UnixNano(), Msg: sprintf}
-		log.Println("-----------------------", Client)
-		(*Client).Publish(config.Mqtt.UpTopic, 1, false, m)
+		marshal, err := json.Marshal(m)
+		if err != nil {
+			log.Println(err)
+		}
+		Client.Publish(config.Mqtt.UpTopic, 1, false, marshal)
 
-		log.Println("Mqtt Publish Done :", m)
 	}
 }

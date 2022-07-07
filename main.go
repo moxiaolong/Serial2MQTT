@@ -40,14 +40,12 @@ func main() {
 
 func checkMqttClient(clients chan MQTT.Client) {
 	for client := range clients {
-
-		log.Println("-----------------------", &client)
-		handle.SetMqttClient(client)
+		handle.Client = client
 	}
 
 }
 func checkSerial(ports chan serial.Port) {
 	for port := range ports {
-		handle.SetSerial(port)
+		handle.Port = port
 	}
 }

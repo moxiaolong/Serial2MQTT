@@ -11,10 +11,6 @@ import (
 
 var Port serial.Port
 
-func SetSerial(port serial.Port) {
-	Port = port
-}
-
 func Mqtt(msg chan [2]string, exit chan bool) {
 	for {
 		select {
