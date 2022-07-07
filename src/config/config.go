@@ -22,15 +22,25 @@ type Mqtt struct {
 
 type Serial struct {
 	//串口
-	Address  string
-	BaudRate int
-	DataBits int
-	StopBits int
-	Parity   string
+	Address          string
+	BaudRate         int
+	DataBits         int
+	StopBits         int
+	Parity           string
+	BufferSize       int
+	UnpackBufferSize int
+	//包头
+	UnpackBHead []byte
 }
 
+type Store interface {
+	GetConfig()
+}
+
+var config Config = Config{}
+
 func GetConfig() Config {
-	config := Config{}
+	config = Config{}
 	config.Mqtt.Host = "127.0.0.1"
 	config.Mqtt.Port = 1883
 	config.Mqtt.Qos = 0
@@ -43,6 +53,9 @@ func GetConfig() Config {
 	config.Serial.DataBits = 8
 	config.Serial.StopBits = 1
 	config.Serial.Parity = "N"
+	config.Serial.BufferSize = 16
+	config.Serial.UnpackBufferSize = 512
+	config.Serial.UnpackBHead = []byte{0x24, 0x50, 0x41, 0x52, 0x41}
 
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")

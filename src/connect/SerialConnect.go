@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func Serial(config Config.Config, serialChan chan serial.Port, serialHandle func([]byte)) {
+func Serial(config Config.Config, serialChan chan serial.Port, serialHandle func([]byte, Config.Config)) {
 	for {
 		log.Println("Connecting... Serial ", config.Address)
 		port, err := serial.Open(&serial.Config{
@@ -25,14 +25,14 @@ func Serial(config Config.Config, serialChan chan serial.Port, serialHandle func
 		} else {
 			log.Println("Connected Serial to ", config.Address)
 			serialChan <- port
-			buffer := make([]byte, 8)
+			buffer := make([]byte, config.Serial.BufferSize)
 			for {
 				read, err := port.Read(buffer)
 				if err != nil {
 					log.Println(err)
 				} else {
 					if read > 0 {
-						serialHandle(buffer)
+						serialHandle(buffer, config)
 					}
 				}
 			}

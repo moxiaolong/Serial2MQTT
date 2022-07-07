@@ -15,7 +15,7 @@ import (
 
 var ClientID = "SerialMqttConverter" + strconv.FormatInt(rand.Int63n(math.MaxInt64), 16)
 var MqttClient MQTT.Client = nil
-var serialPort serial.Port = nil
+var SerialPort serial.Port = nil
 
 func main() {
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
@@ -28,7 +28,7 @@ func main() {
 	go connect.Serial(config, ports, handle.Serial)
 
 	MqttClient = <-clients
-	serialPort = <-ports
+	SerialPort = <-ports
 	for {
 		time.Sleep(time.Second * 60)
 	}
