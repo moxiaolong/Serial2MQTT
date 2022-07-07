@@ -14,7 +14,11 @@ var unpackChan = make(chan []byte)
 var Client MQTT.Client
 
 func SetMqttClient(client MQTT.Client) {
+	log.Println("----------------------1", &Client)
+	log.Println("-----------------------2", client)
 	Client = client
+	log.Println("-----------------------3", &Client)
+	log.Println("-----------------------4", client)
 }
 
 func Serial(msg []byte, config Config.Config) {
@@ -74,7 +78,6 @@ func consumerUnpack(config Config.Config) {
 		log.Println("Unpacked Data:", sprintf)
 		m := message.Message{Ns: time.Now().UnixNano(), Msg: sprintf}
 		log.Println("-----------------------", &Client)
-		log.Println(Client == nil)
 		Client.Publish(config.Mqtt.UpTopic, 1, false, m)
 
 		log.Println("Mqtt Publish Done :", m)

@@ -13,9 +13,6 @@ import (
 	"time"
 )
 
-var MqttClient *MQTT.Client
-var SerialPort *serial.Port
-
 func main() {
 	//日志
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
@@ -43,7 +40,7 @@ func main() {
 
 func checkMqttClient(clients chan MQTT.Client) {
 	for client := range clients {
-		MqttClient = &client
+
 		handle.SetMqttClient(client)
 		log.Println("-----------------------", &client)
 	}
@@ -51,7 +48,6 @@ func checkMqttClient(clients chan MQTT.Client) {
 }
 func checkSerial(ports chan serial.Port) {
 	for port := range ports {
-		SerialPort = &port
-		handle.SetSerial(*SerialPort)
+		handle.SetSerial(port)
 	}
 }
