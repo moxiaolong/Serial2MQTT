@@ -73,7 +73,7 @@ func consumerUnpack(config Config.Config) {
 		sprintf := hex.EncodeToString(bytes)
 		log.Println("Unpacked Data:", sprintf)
 		m := message.Message{Ns: time.Now().UnixNano(), Msg: sprintf}
-		Client.Publish(config.Mqtt.UpTopic, 0, true, m)
+		Client.Publish(config.Mqtt.UpTopic, 1, false, m)
 		log.Println("Mqtt Publish Done :", m)
 	}
 }
