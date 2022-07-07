@@ -1,12 +1,15 @@
-mqtt:
-  host: 127.0.0.1
-  port: 1883
-  username: aaaaa
-  password: 12345
-  qos: 0
-rtumodbus:
-  address: "/dev/ttyUSB0"
-  baudrate: 115200
-  databits: 1
-  stopbits: 1
-  Parity: "N"
+Mqtt:
+  Host: 127.0.0.1
+  Port: 1883
+  Qos: 0
+  UpTopic: /twwg/serial/up
+  DownTopic: /twwg/serial/down
+Serial:
+  Address: /dev/ttyUSB0
+  BaudRate: 115200
+  DataBits: 8
+  StopBits: 1
+  Parity: N
+  BufferSize: 16
+  UnpackBufferSize: 512
+  UnpackBHead: 0x24, 0x50, 0x41, 0x52, 0x41

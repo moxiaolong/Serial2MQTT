@@ -61,6 +61,7 @@ func GetConfig() Config {
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath("../")
 	viper.AddConfigPath("./")
+	viper.AddConfigPath("./src")
 	if err := viper.ReadInConfig(); err != nil {
 
 		log.Println(err.Error())
