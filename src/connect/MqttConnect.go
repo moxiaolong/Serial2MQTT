@@ -36,7 +36,7 @@ func Mqtt(config Config.Config, clientId string, dealMqttMsg func(chan [2]string
 	go dealMqttMsg(recmsg, quit)
 
 	MqttClient := MQTT.NewClient(connOpts)
-	clients <- MqttClient
+
 	for {
 		if MqttClient.IsConnected() {
 			time.Sleep(time.Second * 15)
@@ -49,6 +49,7 @@ func Mqtt(config Config.Config, clientId string, dealMqttMsg func(chan [2]string
 			continue
 		} else {
 			log.Println("Connected to mqtt:", server)
+			clients <- MqttClient
 			if token := MqttClient.Subscribe(DownTopic, byte(qos), nil); token.Wait() && token.Error() != nil {
 				log.Println(token.Error())
 			} else {
