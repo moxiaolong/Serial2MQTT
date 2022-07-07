@@ -19,7 +19,7 @@ func SetMqttClient(client MQTT.Client) {
 	log.Println("-----------------------2", &client)
 	Client = &client
 
-	log.Println("-----------------------3", *Client)
+	log.Println("-----------------------3", Client)
 	log.Println("-----------------------4", &client)
 }
 
