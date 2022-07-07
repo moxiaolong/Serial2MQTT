@@ -14,9 +14,12 @@ var unpackChan = make(chan []byte)
 var Client MQTT.Client
 
 func SetMqttClient(client MQTT.Client) {
+	print(Client == nil)
 	log.Println("----------------------1", &Client)
 	log.Println("-----------------------2", &client)
 	Client = client
+	connected := Client.IsConnected()
+	println(connected)
 	log.Println("-----------------------3", &Client)
 	log.Println("-----------------------4", &client)
 }

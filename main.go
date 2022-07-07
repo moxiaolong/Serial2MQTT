@@ -41,8 +41,8 @@ func main() {
 func checkMqttClient(clients chan MQTT.Client) {
 	for client := range clients {
 
-		handle.SetMqttClient(client)
 		log.Println("-----------------------", &client)
+		handle.SetMqttClient(client)
 	}
 
 }
