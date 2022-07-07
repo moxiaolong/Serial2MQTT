@@ -18,8 +18,8 @@ func SetMqttClient(client MQTT.Client) {
 	log.Println("----------------------1", &Client)
 	log.Println("-----------------------2", &client)
 	Client = &client
-	client2 := *Client
-	log.Println("-----------------------3", &client2)
+
+	log.Println("-----------------------3", *Client)
 	log.Println("-----------------------4", &client)
 }
 
