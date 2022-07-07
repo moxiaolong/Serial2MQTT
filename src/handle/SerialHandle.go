@@ -11,16 +11,15 @@ import (
 
 var buffer = make([]byte, 0)
 var unpackChan = make(chan []byte)
-var Client MQTT.Client
+var Client *MQTT.Client
 
 func SetMqttClient(client MQTT.Client) {
 	log.Println(Client == nil)
 	log.Println("----------------------1", &Client)
 	log.Println("-----------------------2", &client)
-	Client = client
-	connected := Client.IsConnected()
-	log.Println(connected)
-	log.Println("-----------------------3", &Client)
+	Client = &client
+	client2 := *Client
+	log.Println("-----------------------3", &client2)
 	log.Println("-----------------------4", &client)
 }
 
@@ -81,7 +80,7 @@ func consumerUnpack(config Config.Config) {
 		log.Println("Unpacked Data:", sprintf)
 		m := message.Message{Ns: time.Now().UnixNano(), Msg: sprintf}
 		log.Println("-----------------------", &Client)
-		Client.Publish(config.Mqtt.UpTopic, 1, false, m)
+		(*Client).Publish(config.Mqtt.UpTopic, 1, false, m)
 
 		log.Println("Mqtt Publish Done :", m)
 	}
