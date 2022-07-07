@@ -21,6 +21,7 @@ func SetMqttClient(client MQTT.Client) {
 
 	log.Println("-----------------------3", Client)
 	log.Println("-----------------------4", &client)
+	log.Println("----------------------5", &*Client)
 }
 
 func Serial(msg []byte, config Config.Config) {
