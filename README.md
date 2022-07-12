@@ -22,3 +22,6 @@ Serial:
   UnpackBufferSize: 512 #拆包缓冲区长度
   UnpackBHead: 0x24, 0x50, 0x41, 0x52, 0x41 #包头，用来拆包
 ```
+
+上下行数据格式：
+{"Ns":1657188619495246638,"Msg":"ffffffff"}
