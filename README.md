@@ -3,7 +3,7 @@
 - 接受串口数据，拆包后发送到MQTT
 - 接受MQTT数据，发送到串口
 
-通过src/config.yaml配置
+通过config.yaml配置
 
 ```yaml
 Mqtt:
