@@ -22,6 +22,8 @@ func Serial(msg []byte, config Config.Config) {
 	//拆包
 	//包头
 	head := config.UnpackBHead
+	//最后指示
+	lastIndex := len(head) - 1
 	//在buffer中寻找head
 
 	for {
@@ -33,7 +35,7 @@ func Serial(msg []byte, config Config.Config) {
 		oneMore := false
 		//滑动窗口寻找头
 		//从头后开始 到 buffer末尾和head末尾对齐结束
-		for i := len(head) - 1; i < len(buffer)-len(head); i++ {
+		for i := lastIndex; i < len(buffer)-len(head); i++ {
 			//包含头
 			isHead := true
 			//比较每一位
@@ -54,6 +56,8 @@ func Serial(msg []byte, config Config.Config) {
 				buffer = append(buffer[endIndex:])
 				//标记oneMore 之后跳出
 				oneMore = true
+				//重置最后指示
+				lastIndex = len(head) - 1
 				break
 			}
 			//继续位移窗口
@@ -68,8 +72,8 @@ func Serial(msg []byte, config Config.Config) {
 func consumerUnpack(config Config.Config) {
 	for bytes := range unpackChan {
 		sprintf := hex.EncodeToString(bytes)
-		log.Println("Unpacked Data:", sprintf)
-		m := message.Message{Ns: time.Now().UnixNano(), Msg: sprintf}
+		log.Println(config.Serial.Address+"Unpacked Data:", sprintf)
+		m := message.Message{Ns: time.Now().UnixNano(), Msg: sprintf, Address: config.Serial.Address}
 		marshal, err := json.Marshal(m)
 		if err != nil {
 			log.Println(err)
