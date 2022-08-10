@@ -1,6 +1,7 @@
 package message
 
 type Message struct {
-	Ns  int64
-	Msg string
+	Ns      int64
+	Msg     string
+	Address string
 }
