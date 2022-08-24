@@ -1,8 +1,12 @@
 package message
 
 type Message struct {
-	Ns        int64
-	Msg       string
+	//发送时间 纳秒
+	Ns int64
+	//发送内容
+	Msg string
+	//发送者标识
 	Publisher string
-	Mid       string
+	//消息标识
+	Mid string
 }
