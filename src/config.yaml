@@ -1,6 +1,8 @@
 Mqtt:
   Host: 127.0.0.1
   Port: 1883
+  Password:
+  Username:
   Qos: 0
   UpTopic: /twwg/serial/up
   DownTopic: /twwg/serial/down
@@ -12,4 +14,4 @@ Serial:
   Parity: N
   BufferSize: 16
   UnpackBufferSize: 512
-  UnpackBHead: [0x24, 0x50, 0x41, 0x52, 0x41]
+  UnpackBHead: [ 0x24, 0x50, 0x41, 0x52, 0x41 ]
