@@ -24,4 +24,14 @@ Serial:
 ```
 
 上下行数据格式：
-{"Ns":1657188619495246638,"Msg":"ffffffff"}
+
+```json
+{
+  "Ns": 11111,
+  "Msg": "string",
+  "Publisher": "/dev/ttyUSB0",
+  "Mid": "uuid"
+}
+```
+
+

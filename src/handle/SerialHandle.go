@@ -4,6 +4,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	MQTT "github.com/eclipse/paho.mqtt.golang"
+	"github.com/satori/go.uuid"
 	"log"
 	Config "modbusRtu2Mqtt/src/config"
 	"modbusRtu2Mqtt/src/message"
@@ -73,7 +74,7 @@ func consumerUnpack(config Config.Config) {
 	for bytes := range unpackChan {
 		sprintf := hex.EncodeToString(bytes)
 		log.Println(config.Serial.Address+"Unpacked Data:", sprintf)
-		m := message.Message{Ns: time.Now().UnixNano(), Msg: sprintf, Address: config.Serial.Address}
+		m := message.Message{Ns: time.Now().UnixNano(), Msg: sprintf, Publisher: config.Serial.Address, Mid: uuid.NewV4().String()}
 		marshal, err := json.Marshal(m)
 		if err != nil {
 			log.Println(err)
