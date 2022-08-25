@@ -29,12 +29,13 @@ func Serial(config Config.Config, serialChan chan serial.Port, serialHandle func
 			buffer := make([]byte, config.Serial.BufferSize)
 			for {
 				read, err := port.Read(buffer)
-				log.Println("originalData :", hex.EncodeToString(buffer))
+
 				if err != nil {
 					log.Println(err)
 				} else {
 					if read > 0 {
-						slice := buffer[0 : read+1]
+						slice := buffer[0:read]
+						log.Println("originalData :", hex.EncodeToString(slice))
 						buffer = make([]byte, config.Serial.BufferSize)
 						serialHandle(slice, config)
 					}
