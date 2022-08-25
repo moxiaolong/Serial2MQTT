@@ -34,7 +34,9 @@ func Serial(config Config.Config, serialChan chan serial.Port, serialHandle func
 					log.Println(err)
 				} else {
 					if read > 0 {
-						serialHandle(buffer, config)
+						slice := buffer[0 : read+1]
+						buffer = make([]byte, config.Serial.BufferSize)
+						serialHandle(slice, config)
 					}
 				}
 			}
