@@ -8,6 +8,7 @@ import (
 	"log"
 	Config "modbusRtu2Mqtt/src/config"
 	"modbusRtu2Mqtt/src/message"
+	"strings"
 	"time"
 )
 
@@ -72,7 +73,7 @@ func Serial(msg []byte, config Config.Config) {
 
 func consumerUnpack(config Config.Config) {
 	for bytes := range unpackChan {
-		sprintf := hex.EncodeToString(bytes)
+		sprintf := strings.ToUpper(hex.EncodeToString(bytes))
 		log.Println(config.Serial.Address+"Unpacked Data:", sprintf)
 		m := message.Message{Ns: time.Now().UnixNano(), Msg: sprintf, Publisher: config.Serial.Address, Mid: uuid.NewV4().String()}
 		marshal, err := json.Marshal(m)
